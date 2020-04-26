@@ -201,7 +201,7 @@ def in_range(timestamp, days, zone):
     """
     This function checks to see if a timestamp object occurs within a certain number of days from now. Takes in a
     timezone of the timestamp as well as how many days to check. (EX: 5 days for anything less than or equal to 5 days
-    ago)
+    ago). This function is useful to avoid intra-day trading.
 
     Parameters
     ----------
@@ -219,7 +219,7 @@ def in_range(timestamp, days, zone):
     now = datetime.datetime.now(st)
     difference = now - timestamp
 
-    # If checking to see if a trade happened today, check for differences less than 1 day (6 days ago is )
+    # If checking to see if a trade happened today, check for differences less than 1 day
     if days == 1:
         if difference.days >= days:
             return False
@@ -252,8 +252,6 @@ def record_trades(stock_ticker, quantity, side, trade_type, now, limit_price, tx
     None
 
     """
-    # TODO backup in S3
-    save_file_to_s3([txt_file, sqlite_db])
 
     # Insert into database
     con = lite.connect(sqlite_db)
@@ -276,11 +274,6 @@ def record_trades(stock_ticker, quantity, side, trade_type, now, limit_price, tx
 
         file.write(f"Query was {txt_query}")
         file.write("\n \n")
-
-
-def save_file_to_s3(files):
-    # TODO save specified file to S3
-    pass
 
 
 def get_last_bought_price(api, stock_ticker, result_limit=200):
