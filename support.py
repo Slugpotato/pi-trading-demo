@@ -41,7 +41,6 @@ def limit_trade(limit_price, api, stock_ticker, quantity,  side='buy', trade_typ
     This function buys or sells a limit trade given a specific price, quantity, and stock ticker. Default settings can
     be changed including side (buy or sell)
 
-
     Parameters
     ----------
     limit_price: Price in which to execute the trade
@@ -93,6 +92,7 @@ def trade_in_time_period(api, stock_ticker, trade_type, day_range, zone='UTC', r
     Boolean: True if stock is found in current positions, else False
 
     """
+    
     # Check for pending orders
     pending_orders = check_for_pending(api, stock_ticker, trade_type, day_range)
 
@@ -355,6 +355,19 @@ def currently_own_this_stock(api, stock_ticker):
 
 
 def wait_time(seconds=300):
+    """
+    This function pauses for the specified time, default to 300 seconds. Overwrites each print statement with progress.
+
+    Parameters
+    ----------
+    seconds: Number of seconds to wait
+
+    Returns
+    -------
+    None
+
+    """
+
     timer = 0
     sleep_time = seconds
     left_to_go = sleep_time

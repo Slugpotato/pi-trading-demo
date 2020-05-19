@@ -38,9 +38,11 @@ def main():
                     api = tradeapi.REST(key_id=APCA_API_KEY_ID, secret_key=APCA_API_SECRET_KEY, api_version='v2',
                                         base_url=APCA_API_BASE_URL)
 
+                    api.submit_order(symbol="AMD", qty=1, side='buy', type='limit', time_in_force='day', limit_price='60')
+
                     # Trading strategy 1
                     trading_strategy_1(api, stock_ticker=stock_tickers, percent_aim=0.01)
-                    support.wait_time()
+                    # support.wait_time()
 
                     if not support.is_trading_hours():
                         break
@@ -53,9 +55,9 @@ def main():
                 support.wait_time(seconds=900)
 
         except Exception as e:
-            support.wait_time()
+            # support.wait_time()
 
-            # Save query in .txt file as well
+            # Save error in .txt file
             with open("log.txt", 'a') as f:  # Use file to refer to the file object
 
                 f.write("\n \n")
@@ -69,7 +71,7 @@ def main():
                 print(f"Breaking because of an error: {e}")
 
 
-def trading_strategy_1(api, stock_ticker, percent_aim):
+def trading_strategy_1(api, stock_ticker):
     """
     Fill in your own trading strategy here! Be advised though, I am not responsible for any trades you make and am not a financial advisor! 
 
@@ -114,17 +116,18 @@ def set_vars(secrets_file="secrets-alpaca.env"):
 
     Returns
     -------
+    None
 
     """
 
     global APCA_API_KEY_ID, APCA_API_SECRET_KEY, APCA_API_BASE_URL
 
-    file = open(f"{secrets_file}", 'r')
-    contents = file.read()
-    env_vars = contents.replace('export ', '').split("\n")
-    APCA_API_KEY_ID = env_vars[0].split("=")[1]
-    APCA_API_SECRET_KEY = env_vars[1].split("=")[1]
-    APCA_API_BASE_URL = env_vars[2].split("=")[1]
+    with open(f"{secrets_file}", 'r') as file:
+        contents = file.read()
+        env_vars = contents.replace('export ', '').split("\n")
+        APCA_API_KEY_ID = env_vars[0].split("=")[1]
+        APCA_API_SECRET_KEY = env_vars[1].split("=")[1]
+        APCA_API_BASE_URL = env_vars[2].split("=")[1]
 
 
 if __name__ == '__main__':
