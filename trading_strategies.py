@@ -38,11 +38,9 @@ def main():
                     api = tradeapi.REST(key_id=APCA_API_KEY_ID, secret_key=APCA_API_SECRET_KEY, api_version='v2',
                                         base_url=APCA_API_BASE_URL)
 
-                    api.submit_order(symbol="AMD", qty=1, side='buy', type='limit', time_in_force='day', limit_price='60')
-
                     # Trading strategy 1
-                    trading_strategy_1(api, stock_ticker=stock_tickers, percent_aim=0.01)
-                    # support.wait_time()
+                    trading_strategy_1(api, stock_ticker=stock_tickers)
+                    support.wait_time()
 
                     if not support.is_trading_hours():
                         break
@@ -79,13 +77,15 @@ def trading_strategy_1(api, stock_ticker):
     ----------
     api: Alpaca api object
     stock_ticker: Stock ticker string (ex: NRZ)
-    percent_aim: Percent increase to sell at
 
     Returns
     -------
     None
     
     """
+
+    # Example submit order
+    # api.submit_order(symbol="AMD", qty=1, side='buy', type='limit', time_in_force='day', limit_price='60')
 
     account = api.get_account()
 
@@ -94,7 +94,7 @@ def trading_strategy_1(api, stock_ticker):
     ###############################
     # Buying
     ###############################
-    
+
     # Fill in some Buying logic here...
 
     ###############################

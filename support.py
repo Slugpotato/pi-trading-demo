@@ -35,8 +35,8 @@ def is_trading_hours(zone='EST', start=datetime.time(9, 30, 0), end=datetime.tim
         return start <= now or now <= end
 
 
-def limit_trade(limit_price, api, stock_ticker, quantity,  side='buy', trade_type='limit', time_in_force='gtc',
-                stop_price=None, client_order_id=None, extended_hours=None):
+def submit_trade(limit_price, api, stock_ticker, quantity,  side='buy', trade_type='limit', time_in_force='gtc',
+                 stop_price=None, client_order_id=None, extended_hours=None):
     """
     This function buys or sells a limit trade given a specific price, quantity, and stock ticker. Default settings can
     be changed including side (buy or sell)
