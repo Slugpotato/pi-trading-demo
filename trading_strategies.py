@@ -84,8 +84,8 @@ def trading_strategy_1(api, stock_ticker):
     
     """
 
-    # Example submit order
-    # api.submit_order(symbol="AMD", qty=1, side='buy', type='limit', time_in_force='day', limit_price='60')
+    # Example submit order 
+    # support.submit_trade(limit_price='400', api=api, stock_ticker=stock_ticker, quantity=1, side='buy', trade_type='limit', time_in_force='gtc')
 
     account = api.get_account()
 
@@ -94,9 +94,9 @@ def trading_strategy_1(api, stock_ticker):
     ###############################
     # Buying
     ###############################
-
+    
     # Fill in some Buying logic here...
-
+    
     ###############################
     # Selling
     ###############################
